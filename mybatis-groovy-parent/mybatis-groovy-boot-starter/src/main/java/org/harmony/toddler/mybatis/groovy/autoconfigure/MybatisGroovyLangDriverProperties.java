@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Data
 @ConfigurationProperties(prefix = "mybatis.groovy")
-@Configuration
 public class MybatisGroovyLangDriverProperties {
 
     private String[] roots;
