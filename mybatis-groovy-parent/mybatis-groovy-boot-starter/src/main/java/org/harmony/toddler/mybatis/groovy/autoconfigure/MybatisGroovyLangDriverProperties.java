@@ -17,4 +17,6 @@ public class MybatisGroovyLangDriverProperties {
 
     private String[] roots;
 
+    private String baseClass;
+
 }

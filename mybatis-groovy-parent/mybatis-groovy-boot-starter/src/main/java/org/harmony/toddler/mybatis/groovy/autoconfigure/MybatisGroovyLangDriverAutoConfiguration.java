@@ -1,5 +1,6 @@
 package org.harmony.toddler.mybatis.groovy.autoconfigure;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.scripting.LanguageDriver;
 import org.harmony.toddler.mybatis.groovy.GroovyLangDriver;
 import org.harmony.toddler.mybatis.groovy.GroovyLangDriverConfig;
@@ -44,6 +45,9 @@ public class MybatisGroovyLangDriverAutoConfiguration {
     public GroovyLangDriverConfig groovyLangDriverConfig() {
         if (properties.getRoots() != null && properties.getRoots().length > 0) {
             GroovyLangDriverConfig.setRoots(properties.getRoots());
+        }
+        if (StringUtils.isNotEmpty(properties.getBaseClass())) {
+            GroovyLangDriverConfig.setBaseClass(properties.getBaseClass());
         }
         return GroovyLangDriverConfig.newInstance();
     }
