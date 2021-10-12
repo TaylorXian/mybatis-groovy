@@ -1,5 +1,7 @@
 package org.harmony.toddler.mybatis.groovy;
 
+import groovy.lang.Script;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.harmony.toddler.mybatis.util.PathUtil;
@@ -16,9 +18,14 @@ import java.util.Optional;
 /**
  * Groovy Driver Config
  */
+@Slf4j
 public class GroovyLangDriverConfig {
 
     private static String[] roots = new String[]{"groovy/"};
+    /**
+     * Groovy Script Base Class
+     */
+    private static String baseClass = "org.harmony.toddler.mybatis.groovy.GroovySqlMethodExt";
 
     /**
      * Get Roots Of Groovy Script
@@ -82,6 +89,22 @@ public class GroovyLangDriverConfig {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
+    }
+
+    public String getGroovyScriptBaseClassName() {
+        try {
+            Class<?> aClass = GroovyLangDriverConfig.class.getClassLoader().loadClass(baseClass);
+            if (Script.class.isAssignableFrom(aClass)) {
+                return baseClass;
+            }
+        } catch (ClassNotFoundException e) {
+            log.warn(e.getMessage(), e);
+        }
+        return GroovySqlMethodExt.class.getName();
+    }
+
+    public static void setBaseClass(String baseClass) {
+        GroovyLangDriverConfig.baseClass = baseClass;
     }
 
     public static void setRoots(String[] roots) {

@@ -14,6 +14,14 @@
     <description>mybatis groovy plugin</description>
     <url>https://github.com/TaylorXian/mybatis-groovy-parent</url>
 
+    <developers>
+        <developer>
+            <name>TaylorXian</name>
+            <email>taylorxian@163.com</email>
+            <url>https://github.com/TaylorXian/mybatis-groovy-parent</url>
+        </developer>
+    </developers>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

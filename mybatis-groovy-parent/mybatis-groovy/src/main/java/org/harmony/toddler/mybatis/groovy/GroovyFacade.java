@@ -33,7 +33,7 @@ public class GroovyFacade {
      */
     public static void initialize(GroovyLangDriverConfig driverConfig) {
         engine = GroovyExecutor.create(driverConfig.getRoots());
-        engine.setBase(GroovySqlScriptBase.class.getName());
+        engine.setBase(driverConfig.getGroovyScriptBaseClassName());
     }
 
     /**
