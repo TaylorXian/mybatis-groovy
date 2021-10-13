@@ -4,6 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,5 +43,63 @@ public class PathUtil {
 
     private static BiPredicate<Path, BasicFileAttributes> createPredicate(final boolean onlyDir, final String target) {
         return (path, basicFileAttributes) -> (!onlyDir || Files.isDirectory(path)) && StringUtils.equalsIgnoreCase(path.getFileName().toString(), target);
+    }
+
+    public static URL newUrl(String url) {
+        try {
+            return new URL(url);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Judge whether the path is absolute or not
+     *
+     * @param path path
+     * @return return true if path is absolute
+     */
+    public static boolean isAbsolute(String path) {
+        if (StringUtils.isEmpty(path)) {
+            return false;
+        }
+        return PathUtil.isAbsolute(Paths.get(path));
+    }
+
+    /**
+     * Judge whether the path is absolute or not
+     *
+     * @param path path
+     * @return return true if path is absolute
+     */
+    public static boolean isAbsolute(Path path) {
+        return path.isAbsolute();
+    }
+
+    public static URL path2Url(Path path) {
+        try {
+            String p = path.toString();
+            if (p.endsWith("/")) {
+                return path.toUri().toURL();
+            }
+            return Paths.get(p + "/").toUri().toURL();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Normalize path:
+     * <strong>resolve relative path and double separator, do not trim ending separator</strong>
+     *
+     * @param path
+     * @return
+     */
+    public static String normalizePath(String path) {
+        try {
+            return new URI(path).normalize().getPath();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 }

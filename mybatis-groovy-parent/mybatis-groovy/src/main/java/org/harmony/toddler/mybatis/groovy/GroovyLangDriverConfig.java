@@ -7,13 +7,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.harmony.toddler.mybatis.util.PathUtil;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import static org.harmony.toddler.mybatis.util.PathUtil.newUrl;
 
 /**
  * Groovy Driver Config
@@ -36,27 +38,42 @@ public class GroovyLangDriverConfig {
         final String[] rs = roots;
         final List<URL> list = new ArrayList<>(rs.length);
         for (String root : rs) {
+            if (StringUtils.isEmpty(root)) {
+                log.warn("root is empty");
+                continue;
+            }
             addUrl(list, root);
         }
         return list.toArray(new URL[0]);
     }
 
     private static void addUrl(List<URL> list, String root) {
-        URL url = toURL(root);
+        // url
+        if (root.contains("://")) {
+            list.add(appendSlash(newUrl(root)));
+            return;
+        }
+        // absolute path root
+        Path path = Paths.get(root);
+        if (PathUtil.isAbsolute(path)) {
+            addUrl(list, PathUtil.path2Url(path));
+            return;
+        }
+        // relative path root
+        addUrl(list, toURL(root));
+    }
+
+    private static void addUrl(List<URL> list, URL url) {
         if (Objects.nonNull(url)) {
             list.add(appendSlash(url));
         }
     }
 
     private static URL appendSlash(URL url) {
-        try {
-            if (url.toString().endsWith("/")) {
-                return url;
-            }
-            return new URL(url + "/");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e.getMessage(), e);
+        if (url.toString().endsWith("/")) {
+            return url;
         }
+        return newUrl(url.toString() + "/");
     }
 
     // search path first, then search in the classpath if not found the path,
@@ -79,16 +96,10 @@ public class GroovyLangDriverConfig {
 
     private static URL findPath(String root) {
         Path base = PathUtil.basePath();
-        try {
-            String[] targets = StringUtils.split(root, "/\\");
-            Optional<Path> rootPath = PathUtil.findPath(base, targets);
-            if (rootPath.isPresent()) {
-                return rootPath.get().toUri().toURL();
-            }
-            return null;
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
+        String[] targets = StringUtils.split(root, "/\\");
+        Optional<Path> rootPath = PathUtil.findPath(base, targets);
+        return rootPath.map(PathUtil::path2Url)
+                .orElse(null);
     }
 
     public String getGroovyScriptBaseClassName() {
