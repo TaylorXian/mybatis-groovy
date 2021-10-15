@@ -30,6 +30,7 @@ public class MybatisGroovyMain {
         try {
             mybatis.runFromXml();
             mybatis.runFromAnnotation();
+//            mybatis.testVarSubstitute();
             mybatis.runGroovySql();
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,14 +38,25 @@ public class MybatisGroovyMain {
     }
 
     private void runGroovySql() throws IOException {
-        GroovyLangDriverConfig.setRoots(new String[]{"sql"});
+        GroovyLangDriverConfig.setRoots(new String[]{"spring-boot-demo/sql"});
         buildingSqlSessionFactory();
         sqlSessionFactory.getConfiguration().getTypeAliasRegistry().registerAlias("groovy", GroovyLangDriver.class);
 
         SqlSession session = sqlSessionFactory.openSession();
         int id = 1;
+        String name = "a";
         UserMapper mapper = session.getMapper(UserMapper.class);
-        User user = mapper.selectById(id);
+        User user = mapper.selectByWrapper(id, name);
+        System.out.println(user.getName());
+    }
+
+    public void testVarSubstitute() throws IOException {
+        buildingSqlSessionFactory();
+
+        SqlSession session = sqlSessionFactory.openSession();
+        String condition = "'a'";
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        User user = mapper.findByCondition(condition);
         System.out.println(user.getName());
     }
 

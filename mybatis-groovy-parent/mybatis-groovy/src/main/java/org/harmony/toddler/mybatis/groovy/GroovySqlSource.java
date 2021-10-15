@@ -1,6 +1,5 @@
 package org.harmony.toddler.mybatis.groovy;
 
-import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.mapping.SqlSource;
@@ -20,13 +19,13 @@ public class GroovySqlSource implements SqlSource {
     private final Object compiledScript;
     private final Configuration configuration;
     private static int templateIndex = 0;
-    private final SqlSourceBuilder sqlBuilder;
+    private final GroovySqlBuilder sqlBuilder;
     private final Class<?> parameterType;
 
     public GroovySqlSource(Configuration newConfiguration, String script, Class<?> parameterTypeClass) {
         this.configuration = newConfiguration;
         this.parameterMappingSources = null;
-        this.sqlBuilder = new SqlSourceBuilder(newConfiguration);
+        this.sqlBuilder = new GroovySqlBuilder(newConfiguration);
         this.parameterType = parameterTypeClass == null ? Object.class : parameterTypeClass;
         this.compiledScript = GroovyFacade.compile(script, "groovy-tpl-" + (++templateIndex));
     }

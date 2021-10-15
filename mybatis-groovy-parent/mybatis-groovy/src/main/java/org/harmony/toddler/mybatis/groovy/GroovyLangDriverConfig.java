@@ -56,6 +56,7 @@ public class GroovyLangDriverConfig {
         // absolute path root
         Path path = Paths.get(root);
         if (PathUtil.isAbsolute(path)) {
+            log.debug("path[{}]", path);
             addUrl(list, PathUtil.path2Url(path));
             return;
         }
@@ -73,7 +74,7 @@ public class GroovyLangDriverConfig {
         if (url.toString().endsWith("/")) {
             return url;
         }
-        return newUrl(url.toString() + "/");
+        return newUrl(url + "/");
     }
 
     // search path first, then search in the classpath if not found the path,
@@ -81,7 +82,7 @@ public class GroovyLangDriverConfig {
     private static URL toURL(String root) {
         URL url = findPath(root);
         if (Objects.isNull(url)) {
-            url = GroovyLangDriverConfig.class.getResource(root);
+            url = getResource(root);
         }
         try {
             if (url != null) {
@@ -91,6 +92,10 @@ public class GroovyLangDriverConfig {
         } catch (IOException ignored) {
         }
         return null;
+    }
+
+    private static URL getResource(String name) {
+        return GroovyLangDriverConfig.class.getClassLoader().getResource(name);
     }
 
 

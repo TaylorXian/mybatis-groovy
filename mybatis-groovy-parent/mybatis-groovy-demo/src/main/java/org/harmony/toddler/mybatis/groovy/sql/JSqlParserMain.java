@@ -1,4 +1,4 @@
-package org.harmony.toddler.mybatis.demo;
+package org.harmony.toddler.mybatis.groovy.sql;
 
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.*;

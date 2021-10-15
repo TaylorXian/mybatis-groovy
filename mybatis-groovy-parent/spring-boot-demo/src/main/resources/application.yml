@@ -32,4 +32,4 @@ mybatis-plus:
 
 mybatis:
   groovy:
-    roots: ${GROOVY_ROOT:script}, sql
+    roots: ${GROOVY_ROOT:script}, spring-boot-demo/sql

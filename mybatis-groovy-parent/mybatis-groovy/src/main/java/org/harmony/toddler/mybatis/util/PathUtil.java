@@ -78,11 +78,7 @@ public class PathUtil {
 
     public static URL path2Url(Path path) {
         try {
-            String p = path.toString();
-            if (p.endsWith("/")) {
-                return path.toUri().toURL();
-            }
-            return Paths.get(p + "/").toUri().toURL();
+            return path.toUri().toURL();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
