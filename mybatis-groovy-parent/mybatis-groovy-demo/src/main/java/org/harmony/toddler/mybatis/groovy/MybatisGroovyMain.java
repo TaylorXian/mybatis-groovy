@@ -46,7 +46,9 @@ public class MybatisGroovyMain {
         int id = 1;
         String name = "a";
         UserMapper mapper = session.getMapper(UserMapper.class);
-        User user = mapper.selectByWrapper(id, name);
+        User user = mapper.selectById(id);
+        System.out.println(user.getName());
+        user = mapper.selectByWrapper(id, name);
         System.out.println(user.getName());
     }
 

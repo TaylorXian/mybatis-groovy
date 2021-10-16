@@ -20,7 +20,8 @@ public class DruidSqlParserMain {
     private static void testOgnl() {
         String expr = "id";
         Object context = new HashMap<>();
-        context = null;
+//        context = null; // OgnlException: source is null
+//        context = Integer.valueOf(100); // NoSuchPropertyException
         Object value = OgnlCache.getValue(expr, context);
         System.out.println(value);
     }

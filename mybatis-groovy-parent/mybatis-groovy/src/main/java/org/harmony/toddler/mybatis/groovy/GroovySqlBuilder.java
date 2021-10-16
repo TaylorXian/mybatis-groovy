@@ -56,19 +56,22 @@ public class GroovySqlBuilder extends BaseBuilder {
         @Override
         public String handleToken(String content) {
             Object parameter = context.get("_parameter");
+            Object value = null;
             if (parameter == null) {
                 context.put("value", null);
             } else if (SimpleTypeRegistry.isSimpleType(parameter.getClass())) {
                 context.put("value", parameter);
+                value = parameter;
+            } else {
+                // Get value out of paramMap
+                value = OgnlCache.getValue(content, parameter);
             }
-            Object value = OgnlCache.getValue(content, parameter == null ? context : parameter);
-            if (Objects.isNull(value) && Objects.nonNull(parameter)) {
-                Class<?> pClass = parameter.getClass();
-                if (Character.class.isAssignableFrom(pClass) || Number.class.isAssignableFrom(pClass)) {
-                    value = parameter;
-                } else {
-                    throw new RuntimeException("Sql Parameter '" + content + "' Not Found");
-                }
+            if (Objects.isNull(value)) {
+                // Get value out of binding
+                value = OgnlCache.getValue(content, context);
+            }
+            if (Objects.isNull(value)) {
+                throw new RuntimeException("Sql Parameter '" + content + "' Not Found");
             }
             String srtValue = Objects.toString(value, "");
             checkInjection(srtValue);
