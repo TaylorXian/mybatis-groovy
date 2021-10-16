@@ -4,16 +4,16 @@
 
 [[toc]]
 
-#### Introduction
+#### 简介
 
-Write Sql In Groovy Script.
+用 Groovy 脚本写 Sql。
 
-See the [中文文档](https://github.com/TaylorXian/mybatis-groovy/blob/master/README-zh.md) for Chinese README.
+英文说明 [README](https://github.com/TaylorXian/mybatis-groovy/blob/master/README.md).
 
-#### Design
+#### 设计
 
 
-#### Install
+#### 安装
 
 
 ##### Spring boot
@@ -35,11 +35,11 @@ See the [中文文档](https://github.com/TaylorXian/mybatis-groovy/blob/master/
 </dependency>
 ```
 
-#### Usage
+#### 使用说明
 
-##### Groovy Method
+##### Groovy 方法
 
-- Mapper class: [UserMapper.java](https://github.com/TaylorXian/mybatis-groovy/blob/master/mybatis-groovy-parent/spring-boot-demo/src/main/java/org/harmony/toddler/mybatis/spring/demo/mapper/UserMapper.java)
+- Mapper 类: [UserMapper.java](https://github.com/TaylorXian/mybatis-groovy/blob/master/mybatis-groovy-parent/spring-boot-demo/src/main/java/org/harmony/toddler/mybatis/spring/demo/mapper/UserMapper.java)
 ```java
 @Mapper
 public interface UserMapper {
@@ -50,7 +50,7 @@ public interface UserMapper {
 
 }
 ```
-- Script: [UserMapperSql.groovy](https://github.com/TaylorXian/mybatis-groovy/blob/master/mybatis-groovy-parent/spring-boot-demo/sql/UserMapperSql.groovy)
+- 脚本: [UserMapperSql.groovy](https://github.com/TaylorXian/mybatis-groovy/blob/master/mybatis-groovy-parent/spring-boot-demo/sql/UserMapperSql.groovy)
 ```groovy
 def selectByCondition(Object parameter) {
     '''
@@ -66,7 +66,7 @@ FROM `user`
 
 ##### Groovy Script
 
-- Mapper class: [UserMapper.java](https://github.com/TaylorXian/mybatis-groovy/blob/master/mybatis-groovy-parent/spring-boot-demo/src/main/java/org/harmony/toddler/mybatis/spring/demo/mapper/UserMapper.java)
+- Mapper 类: [UserMapper.java](https://github.com/TaylorXian/mybatis-groovy/blob/master/mybatis-groovy-parent/spring-boot-demo/src/main/java/org/harmony/toddler/mybatis/spring/demo/mapper/UserMapper.java)
 ```java
 @Mapper
 public interface UserMapper {
@@ -77,11 +77,11 @@ public interface UserMapper {
 
 }
 ```
-- Script: [UserMapperSelectByName.groovy](https://github.com/TaylorXian/mybatis-groovy/blob/master/mybatis-groovy-parent/spring-boot-demo/sql/UserMapperSelectByName.groovy)
+- 脚本: [UserMapperSelectByName.groovy](https://github.com/TaylorXian/mybatis-groovy/blob/master/mybatis-groovy-parent/spring-boot-demo/sql/UserMapperSelectByName.groovy)
 ```groovy
 '''select * from user where name = #{name}'''
 ```
 
-#### Contribution
+#### 贡献
 
 
