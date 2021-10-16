@@ -14,4 +14,8 @@ public interface UserMapper {
     @Select("UserMapperSql#selectByCondition")
     @Lang(GroovyLangDriver.class)
     List<UserVO> selectByCondition(UserVO userVO);
+
+    @Select("UserMapperSelectByName")
+    @Lang(GroovyLangDriver.class)
+    UserVO selectByName(String name);
 }

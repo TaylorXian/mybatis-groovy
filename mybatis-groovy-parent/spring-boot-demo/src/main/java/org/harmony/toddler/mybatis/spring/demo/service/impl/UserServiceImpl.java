@@ -18,4 +18,9 @@ public class UserServiceImpl implements UserService {
     public List<UserVO> listByCondition(UserVO userVO) {
         return userMapper.selectByCondition(userVO);
     }
+
+    @Override
+    public UserVO getByName(String name) {
+        return userMapper.selectByName(name);
+    }
 }

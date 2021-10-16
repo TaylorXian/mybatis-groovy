@@ -45,7 +45,7 @@ public class GroovyFacade {
     public static String format(String script) {
         String spt = StringUtils.trimToEmpty(script);
         spt = spt.endsWith(EXT) ? spt : spt + EXT;
-        log.info("format:spt:{}:{}", script, spt);
+        log.trace("format:spt:{}:{}", script, spt);
         return spt;
     }
 

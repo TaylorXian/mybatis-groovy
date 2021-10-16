@@ -10,4 +10,6 @@ import java.util.List;
 public interface UserService {
 
     List<UserVO> listByCondition(UserVO userVO);
+
+    UserVO getByName(String name);
 }

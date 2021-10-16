@@ -27,6 +27,8 @@ logging:
     root: INFO
 
 mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:/mapper/**Mapper.xml
   type-aliases-package: org.harmony.toddler.mybatis.spring.demo
 
