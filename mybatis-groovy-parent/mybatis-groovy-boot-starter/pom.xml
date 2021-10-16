@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.harmony.toddler</groupId>
+        <groupId>io.github.taylorxian</groupId>
         <artifactId>mybatis-groovy-parent</artifactId>
-        <version>1.0-RC</version>
+        <version>1.0.0-RC</version>
     </parent>
     <artifactId>mybatis-groovy-boot-starter</artifactId>
 
@@ -41,7 +41,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.harmony.toddler</groupId>
+            <groupId>io.github.taylorxian</groupId>
             <artifactId>mybatis-groovy</artifactId>
             <version>${mybatis-groovy.version}</version>
         </dependency>
