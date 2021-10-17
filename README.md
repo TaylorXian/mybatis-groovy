@@ -20,7 +20,7 @@ See the [中文文档](https://github.com/TaylorXian/mybatis-groovy/blob/master/
 - Maven
 ```xml
 <dependency>
-    <groupId>org.harmony.toddler</groupId>
+    <groupId>io.github.taylorxian</groupId>
     <artifactId>mybatis-groovy-boot-starter</artifactId>
     <version>1.0-RC</version>
 </dependency>
@@ -29,7 +29,7 @@ See the [中文文档](https://github.com/TaylorXian/mybatis-groovy/blob/master/
 - Maven
 ```xml
 <dependency>
-    <groupId>org.harmony.toddler</groupId>
+    <groupId>io.github.taylorxian</groupId>
     <artifactId>mybatis-groovy</artifactId>
     <version>1.0-RC</version>
 </dependency>
