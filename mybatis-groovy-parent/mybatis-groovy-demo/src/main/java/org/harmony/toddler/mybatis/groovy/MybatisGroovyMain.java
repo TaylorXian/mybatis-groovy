@@ -38,7 +38,7 @@ public class MybatisGroovyMain {
     }
 
     private void runGroovySql() throws IOException {
-        GroovyLangDriverConfig.setRoots(new String[]{"spring-boot-demo/sql"});
+        GroovyLangDriverConfig.setRoots(new String[]{"spring-boot-demo/src/main/resources/script"});
         buildingSqlSessionFactory();
         sqlSessionFactory.getConfiguration().getTypeAliasRegistry().registerAlias("groovy", GroovyLangDriver.class);
 

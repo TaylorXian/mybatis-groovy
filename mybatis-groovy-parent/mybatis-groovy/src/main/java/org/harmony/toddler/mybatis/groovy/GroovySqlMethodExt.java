@@ -2,9 +2,12 @@ package org.harmony.toddler.mybatis.groovy;
 
 import groovy.lang.Closure;
 import groovy.lang.GroovyObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.ibatis.ognl.Ognl;
+import org.apache.ibatis.ognl.OgnlException;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,6 +19,7 @@ import java.util.regex.Pattern;
 import static java.util.stream.Collectors.joining;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
+@Slf4j
 public abstract class GroovySqlMethodExt extends GroovySqlScriptBase {
     static Pattern REGEX_AND_OR = Pattern.compile("(?i)^and|^or");
     static String SELECT = " SELECT ";
@@ -87,6 +91,40 @@ public abstract class GroovySqlMethodExt extends GroovySqlScriptBase {
 
     public static String prop(GroovyObject vo, String name) {
         return hasProperty(vo, name) ? Objects.toString(vo.getProperty(name)) : null;
+    }
+
+    public static Object getValue(Object vo, String name) {
+        Object v = null;
+        try {
+            v = Ognl.getValue(name, vo);
+        } catch (OgnlException e) {
+            log.warn(e.getMessage());
+        }
+        return v;
+    }
+
+    public static Object prop(Object vo, String name) {
+        return getValue(vo, name);
+    }
+
+    public static String propNotNull(Object vo, String name, Closure<String> closure) {
+        Object v = getValue(vo, name);
+        return Objects.nonNull(v) ? closure.call(v) : EMPTY;
+    }
+
+    public static String propIsNull(Object vo, String name, Closure<String> closure) {
+        Object v = getValue(vo, name);
+        return Objects.isNull(v) ? closure.call() : EMPTY;
+    }
+
+    public static String propNotEmpty(Object vo, String name, Closure<String> closure) {
+        String v = Objects.toString(getValue(vo, name), EMPTY);
+        return StringUtils.isNotEmpty(v) ? closure.call(v) : EMPTY;
+    }
+
+    public static String propIsEmpty(Object vo, String name, Closure<String> closure) {
+        String v = Objects.toString(getValue(vo, name), EMPTY);
+        return StringUtils.isEmpty(v) ? closure.call(v) : EMPTY;
     }
 
     public static boolean hasProperty(GroovyObject vo, String name) {

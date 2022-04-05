@@ -34,4 +34,4 @@ mybatis-plus:
 
 mybatis:
   groovy:
-    roots: ${GROOVY_ROOT:script}, spring-boot-demo/sql
+    roots: ${GROOVY_ROOT:script}

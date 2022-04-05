@@ -20,7 +20,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserVO> listByIdAndName(Long id, String name) {
+        return userMapper.selectByWrapper(id, name);
+    }
+
+    @Override
     public UserVO getByName(String name) {
         return userMapper.selectByName(name);
+    }
+
+    @Override
+    public UserVO getById(Long id) {
+        return userMapper.selectById(id);
     }
 }

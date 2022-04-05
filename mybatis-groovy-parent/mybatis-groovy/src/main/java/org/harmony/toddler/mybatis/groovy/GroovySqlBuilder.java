@@ -71,7 +71,7 @@ public class GroovySqlBuilder extends BaseBuilder {
                 value = OgnlCache.getValue(content, context);
             }
             if (Objects.isNull(value)) {
-                throw new RuntimeException("Sql Parameter '" + content + "' Not Found");
+                throw new RuntimeException("Sql Parameter ${" + content + "} Is Null, Please Check Input Value");
             }
             String srtValue = Objects.toString(value, "");
             checkInjection(srtValue);

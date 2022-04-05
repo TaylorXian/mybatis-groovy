@@ -30,7 +30,7 @@ public class GroovyExecutor {
         if (roots.length > 0) {
             return new GroovyExecutor(roots);
         }
-        return new GroovyExecutor(ClassLoader.getSystemResource("groovy/"));
+        return new GroovyExecutor(GroovyExecutor.class.getClassLoader().getResource("groovy/"));
     }
 
     /**

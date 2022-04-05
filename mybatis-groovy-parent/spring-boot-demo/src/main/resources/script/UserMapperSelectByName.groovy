@@ -1,0 +1,1 @@
+'''select id, name, age, addr from user where name = #{name}'''

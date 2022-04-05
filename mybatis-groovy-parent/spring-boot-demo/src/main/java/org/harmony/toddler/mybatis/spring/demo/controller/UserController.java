@@ -36,9 +36,31 @@ public class UserController {
     /**
      * Query Users
      */
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Map<String, Object> list(UserVO userVO) {
+        List<UserVO> list = userService.listByIdAndName(userVO.getId(), userVO.getName());
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);
+        return map;
+    }
+
+    /**
+     * Query Users
+     */
     @GetMapping("/getByName")
     public Map<String, Object> getByName(String name) {
         UserVO user = userService.getByName(name);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", user);
+        return map;
+    }
+
+    /**
+     * Query Users
+     */
+    @GetMapping("/getById")
+    public Map<String, Object> getById(Long id) {
+        UserVO user = userService.getById(id);
         Map<String, Object> map = new HashMap<>();
         map.put("user", user);
         return map;

@@ -18,7 +18,7 @@ public interface UserMapper {
 
     User findByName(String name);
 
-    @Select("UserMapperSql#selectById")
+    @Select("UserSql#selectById")
     @Lang(GroovyLangDriver.class)
     User selectById(int id);
 

@@ -98,31 +98,6 @@
                     <mainClass>org.harmony.toddler.mybatis.spring.demo.MybatisGroovyPluginApp</mainClass>
                 </configuration>
             </plugin>
-            <!-- https://maven.apache.org/plugins/maven-resources-plugin/examples/copy-resources.html -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/classes/sql</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>sql</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>

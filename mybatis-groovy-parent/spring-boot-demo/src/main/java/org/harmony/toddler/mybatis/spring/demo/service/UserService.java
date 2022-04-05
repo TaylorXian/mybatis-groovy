@@ -11,5 +11,9 @@ public interface UserService {
 
     List<UserVO> listByCondition(UserVO userVO);
 
+    List<UserVO> listByIdAndName(Long id, String name);
+
     UserVO getByName(String name);
+
+    UserVO getById(Long id);
 }
